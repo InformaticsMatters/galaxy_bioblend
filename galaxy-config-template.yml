@@ -1,0 +1,4 @@
+# Sample config file.
+# Copy this to galaxy-config.yml and edit accordingly.
+galaxy_key: your_galaxy_API_key
+galaxy_url: https:/your.galaxy.server

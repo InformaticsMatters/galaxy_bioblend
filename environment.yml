@@ -1,0 +1,9 @@
+# conda environment file for bioblend that you can use to run these tools.
+# Create like this:
+#   conda env create -f environment.yml
+name: bioblend
+channels:
+  - bioconda
+dependencies:
+  - python=2.7
+  - bioblend=0.13.0

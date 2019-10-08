@@ -1,0 +1,4 @@
+tmp
+.idea
+**/*.pyc
+galaxy-config.yml
