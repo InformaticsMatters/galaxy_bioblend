@@ -17,6 +17,10 @@ methods in the Utils class (see utils.py).
 **Suggested improvement**: provide better information on the invocation state allowing to find out
 if it is complete, and if so whether it completed successfully or not.
 
+**Update**: problem subsequently encountered with the job IDs being missing from some of the steps
+resulting in it being impossible to determine if the workflow is complete. This may be a new problem
+in 19.09 (can't be certain about this but it seemed to work OK in 19.01)
+
 ## Determining outputs
 
 You might think that the `invocation` object would give you a handle on the outputs created by the
@@ -33,4 +37,27 @@ According to [this converstion](https://gitter.im/galaxyproject/bioblend?at=5d97
 this is likely a bug in Galaxy.
 
 **Suggested improvement**: provide the correct information in the `outputs` and `output_collections`
-properties and ensure this information does not disappear.  
+properties and ensure this information does not disappear.
+
+**Update**: the problem with the **wrong** datasets looks to be a misunderstanding of how to use the
+Galaxy API (the ID of the dataset is identified by the `id` property not the `dataset_id` property!)
+but the fundamental problem of the missing `outputs` and `output_collections` remains.
+
+## Uploading files.
+
+I am unable to upload `mol2` format files as imputs in 19.09. This appears to be because the mol2 format
+id defined as being not `visible`. This worked OK in 19.01 and the `visible` setting has not changed.
+Simon from Freiburg cannot reproduce this which is strange. The `visible` seeting for `mol2` datatype is 
+being changed whihc will work around the problem.
+
+## Workflow steps not being scheduled
+
+In the case of a workflow step having an input parmeter (as oposed to a dataset) being defined by a 
+previous step the step does no appear to be scheduled if preveious steps fail due to errors and then
+get manually re-executed. Only when all steps execute successfully first time does that type of step
+get scheduled.
+
+## Slow execution of trivial steps
+
+A workflow can have trivial steps taking only a few ms to execute, but depending on the state of the 
+galaxy environment those steps can take minutes to schedule and execute.
