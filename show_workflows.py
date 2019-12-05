@@ -1,7 +1,17 @@
-from utils import Utils
+from galaxyclient import Utils
+import sys
 
 u = Utils()
-workflows = u.get_workflows()
-for w in workflows:
-    workflow = u.show_workflow(w['id'])
+gi = u.get_galaxy_instance()
+
+ids = []
+if len(sys.argv) == 1:
+    workflows = gi.workflows.get_workflows()
+    for w in workflows:
+        ids.append(w['id'])
+else:
+    ids = sys.argv[1:]
+
+for id in ids:
+    workflow = gi.workflows.show_workflow(id)
     print("Workflow: " + str(workflow))
